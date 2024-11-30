@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/yapic-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/yapic-{{ version }}.tar.gz
   sha256: b1932245a6fa9807ff64c3436e058bb1059a4f9f55b0fcf1d88b3004ac2c2f75
 
 build:
@@ -14,16 +14,16 @@ build:
     - yapic=yapic.main:entry_point
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - docopt >=0.6.2
     - numpy >=1.15.4
-    - python >=3.6
+    - python >={{ python_min }}
     - tensorflow >=2.6.0
     - yapic-io >=0.2.6
 
@@ -36,6 +36,7 @@ test:
     - yapic --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://yapic.github.io/yapic/
